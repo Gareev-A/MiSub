@@ -45,6 +45,7 @@ export const USER_AGENT_MAPPING = [
     ['loon', SUBSCRIPTION_FORMATS.LOON],
     ['quantumult%20x', SUBSCRIPTION_FORMATS.QUANX],
     ['quantumult', SUBSCRIPTION_FORMATS.QUANX],
+    ['happ', SUBSCRIPTION_FORMATS.BASE64],
 
     // 最后才匹配通用的 clash，作为向下兼容
     ['clash', SUBSCRIPTION_FORMATS.CLASH],
