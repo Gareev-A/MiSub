@@ -19,8 +19,9 @@ export function isBrowserAgent(userAgent) {
         );
 
     // Common proxy client and bot keywords to exclude
+    // Добавлен 'happ' в список исключений
     const isProxyOrBot =
-        /clash|flclash|v2ray|surge|loon|shadowrocket|quantumult|stash|shadowsocks|mihomo|mihomo\.party|meta|nekobox|nekoray|sfi|sfa|sfra|sing-box|surfboard|hiddify|egern|yuetu|月兔|dio|dart|flutter|http-client|okhttp|axios|postman|curl|wget|go-http-client|python|java/i.test(
+        /clash|flclash|v2ray|surge|loon|shadowrocket|quantumult|stash|shadowsocks|mihomo|mihomo\.party|meta|nekobox|nekoray|sfi|sfa|sfra|sing-box|surfboard|hiddify|egern|yuetu|月兔|dio|dart|flutter|http-client|okhttp|axios|postman|curl|wget|go-http-client|python|java|happ/i.test(
             userAgent
         );
 
@@ -100,7 +101,6 @@ export function determineTargetFormat(userAgent, searchParams) {
     // Mapping array to ensure priority order
     const uaMapping = [
         // Hiddify UA 通常同时包含 ClashMeta / sing-box，必须优先匹配客户端本身。
-        // 通用订阅默认使用 sing-box JSON；如需 Clash 可显式传入 target=clash。
         ['hiddify', 'singbox'],
 
         // Mihomo/Meta Core Clients -> Clash
@@ -128,11 +128,15 @@ export function determineTargetFormat(userAgent, searchParams) {
         ['月兔', 'clash'],
         ['sing-box', 'singbox'],
         ['singbox', 'singbox'],
+        
         // Shadowrocket / 小火箭 prefers raw base64 subscription content for adaptive links.
-        // Explicit URL params such as ?clash=1 or ?target=surge still override this mapping.
         ['shadowrocket', 'base64'],
         ['v2rayn', 'base64'],
         ['v2rayng', 'base64'],
+        
+        // 👇 ДОБАВЛЕН HAPP (формат base64 для совместимости с Android клиентами)
+        ['happ', 'base64'], 
+
         ['loon', 'loon'],
         ['quantumult x', 'quanx'],
         ['quantumult%20x', 'quanx'],
@@ -170,7 +174,6 @@ export function isMetaCore(userAgent, searchParams) {
     const ua = userAgent.toLowerCase();
 
     // 包含 meta, mihomo, verge, flclash, stash, party, nekobox 等识别特征
-    // [注意] 我们将 'clash' 放在稍后的位置，并与 core 关键字结合
     const isMetaKeyword =
         /mihomo|mihomo\.party|meta|verge|flclash|stash|nekoray|nekobox|party|surfboard/i.test(ua);
 
