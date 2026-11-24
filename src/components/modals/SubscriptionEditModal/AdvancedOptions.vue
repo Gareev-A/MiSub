@@ -26,7 +26,7 @@
         >
             <option value="">{{ t('subscriptions.defaultUa') }}</option>
             <option value="MiSub">MiSub</option>
-            <option value="Happ/4.11.2">Happ</option>
+            <option value="Happ/4.11.2 HWID:0163164a9e42c923 Model:GUJ0N OS:Android17">Happ</option>
             <option value="clash-verge/v2.4.3">Clash Verge</option>
             <option value="clash.meta">Clash Meta</option>
             <option value="v2rayN/7.23">v2rayN</option>
